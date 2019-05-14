@@ -34,12 +34,12 @@ public class SecurityController {
      * Redirecting endpoint for authentication flow. Invoked in case of bad
      * credentials provided.
      *
-     * @return a Json serialized {@code BadCredentialsError}; never {@code null}
+     * @return a Json serialized {@code SecurityError}; never {@code null}
      */
     @RequestMapping("/authError")
     // No security, anybody can create an account (see SecurityConfig)
     protected ResponseEntity<Object> authError() {
-	HttpStatus status = HttpStatus.BAD_REQUEST;
+	HttpStatus status = HttpStatus.FORBIDDEN;
 	return new ResponseEntity<>(SecurityError.of(status, "Bad credentials"),
 		status);
     }

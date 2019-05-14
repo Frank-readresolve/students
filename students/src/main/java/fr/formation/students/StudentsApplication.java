@@ -30,7 +30,7 @@ public class StudentsApplication {
 	    @Override
 	    public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**").allowedOrigins("*")
-			.allowedMethods("*");
+			.allowedMethods("*").allowCredentials(true);
 	    }
 	};
     }
@@ -56,10 +56,9 @@ public class StudentsApplication {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	    // CSRF disabled to ease tests with Postman
-	    http.csrf().disable().authorizeRequests()
+	    http.cors().and().csrf().disable().authorizeRequests()
 		    .antMatchers("/login", "/security/authError",
-			    "/security/login", "/security/logout", "/users")
-		    // "/mvc/**" for JSP examples
+			    "/security/login", "/security/logout")
 		    .permitAll().and().formLogin().loginPage("/security/login")
 		    .loginProcessingUrl("/login")
 		    .defaultSuccessUrl("/security/me", true)

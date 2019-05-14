@@ -33,10 +33,9 @@ public class UserController {
 	service.create(user);
     }
 
-    @PutMapping("/{id}")
-    protected void update(@PathVariable("id") Long id,
-	    @Valid @RequestBody UserUpdateDto user) {
-	//
+    @PutMapping
+    protected void update(@Valid @RequestBody UserUpdateDto user) {
+	service.update(user);
     }
 
     @DeleteMapping("/{id}")

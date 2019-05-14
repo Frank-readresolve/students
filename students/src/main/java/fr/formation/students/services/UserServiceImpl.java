@@ -4,6 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fr.formation.students.dtos.UserCreateDto;
+import fr.formation.students.dtos.UserUpdateDto;
 import fr.formation.students.entities.Person;
 import fr.formation.students.entities.UserAccount;
 import fr.formation.students.repositories.PersonJpaRepository;
@@ -38,5 +39,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
 	repo.deleteById(id);
+    }
+
+    @Override
+    public void update(UserUpdateDto dto) {
+	Person person = repo.findById(dto.getId()).get();
+	person.setBirthdate(dto.getBirthdate());
+	person.setFirstname(dto.getFirstname());
+	person.setLastname(dto.getLastname());
+	repo.save(person);
     }
 }
